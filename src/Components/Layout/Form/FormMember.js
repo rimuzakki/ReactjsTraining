@@ -10,21 +10,46 @@ class FormMember extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
         var url = 'https://reqres.in/api/users'
-
-        axios.post(url, values)
-          .then(response => {
-              // console.log('response', response.data)
-              var members = this.props.resMembers
-              members.push(response.data)
-              // this.setState({members})
-              this.props.handleMembers(members)
-          }) 
-          .catch(error => {
-              console.log(error)
-          })
+        if (!this.props.formStatus == 'create') {
+          url = `https://reqres.in/api/users/${this.props.memberIdSelected}`
+          this.editMember(url, values)
+        } 
+        else {
+          this.addMember(url, values)
         }
-    });
-  };
+      }
+    })
+  }
+
+  addMember = (url, values) => {
+    axios.post(url, values)
+      .then(response => {
+        // console.log('response', response.data)
+        var members = this.props.resMembers
+        members.push(response.data)
+        // this.setState({members})
+        this.props.handleMembers(members)
+      }) 
+      .catch(error => {
+          console.log(error)
+      })
+    
+  }
+
+  editMember = (url, values) => {
+    axios.put(url, values)
+      .then(response => {
+        var members = this.props.resMembers
+        var indexMember = members.findIndex(member => member.id === this.props.memberIdSelected)
+
+        // mengganti data yang ada dalam state members dan index yang sesuai
+        members[indexMember].first_name = response.data.first_name
+        members[indexMember].last_name = response.data.last_name
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -54,7 +79,7 @@ class FormMember extends Component {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
-            Log in
+            Submit
           </Button>
         </Form.Item>
       </Form>
