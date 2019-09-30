@@ -5,9 +5,9 @@ class CardMember extends Component {
   render() {
     return (
       <div>
-        <Card title="ID Member" style={{ width: 300 }}>
-          <p>First Name</p>
-          <p>Last Name</p>
+        <Card title={this.props.title}>
+          <p>{this.props.firstName}</p>
+          <p>{this.props.lastName}</p>
           <Button>Edit</Button>
           <Button type="danger">Delete</Button>
         </Card>
