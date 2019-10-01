@@ -71,6 +71,7 @@ class Index extends Component {
               handleMembers={this.handleGetMembers} 
               memberIdSelected={this.state.memberIdSelected}
               formStatus={this.state.formStatus}
+              firstName="tes"
             />
           </Col>
         </Row>

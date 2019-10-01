@@ -63,6 +63,7 @@ class FormMember extends Component {
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="First Name"
               name="firstName"
+              value={this.props.firstName}
             />,
           )}
         </Form.Item>
