@@ -41,6 +41,15 @@ class Index extends Component {
       formStatus  : 'edit',
       memberIdSelected : member.id
     })
+    console.log(this.state.first_name, this.state.memberIdSelected)
+    // console.log(first_name, last_name, formStatus, memberIdSelected)
+    // const fname = member.target.name;
+    // const fvalue = member.target.value;
+    // this.props.form.setFieldsValue({
+    //   // [fname]: fvalue
+    //   first_name: member.first_name,
+    //   last_name: member.last_name
+    // })
   }
 
   
@@ -71,7 +80,8 @@ class Index extends Component {
               handleMembers={this.handleGetMembers} 
               memberIdSelected={this.state.memberIdSelected}
               formStatus={this.state.formStatus}
-              firstName="tes"
+              firstName={this.state.first_name}
+              lastName={this.state.last_name}
             />
           </Col>
         </Row>

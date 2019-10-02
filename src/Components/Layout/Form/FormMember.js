@@ -4,13 +4,21 @@ import axios from 'axios';
 
 class FormMember extends Component {
 
+  // componentWillReceiveProps = () => {
+  //   console.log('form', this.props.firstName)
+  //   this.props.form.setFieldsValue({
+  //     first_name: this.props.firstName,
+  //     last_name: this.props.lastName
+  //   })
+  // }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
         var url = 'https://reqres.in/api/users'
-        if (!this.props.formStatus == 'create') {
+        if (this.props.formStatus === 'edit') {
           url = `https://reqres.in/api/users/${this.props.memberIdSelected}`
           this.editMember(url, values)
         } 
@@ -51,19 +59,28 @@ class FormMember extends Component {
       })
   }
 
+  setValue = () => {
+    this.props.form.setFieldsValue({
+      first_name: this.props.firstName,
+      last_name: this.props.lastName
+    })
+    console.log(this.props.formStatus)
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
+      <div>
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('first_name', {
             rules: [{ required: true, message: 'Please input your first name!' }],
+            setFieldsValue: this.props.firstName,
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
               placeholder="First Name"
               name="firstName"
-              value={this.props.firstName}
             />,
           )}
         </Form.Item>
@@ -84,6 +101,10 @@ class FormMember extends Component {
           </Button>
         </Form.Item>
       </Form>
+      <button onClick={() => this.setValue()}>
+        set
+      </button>
+      </div>
     );
   }
 }
