@@ -3,12 +3,30 @@ import { Form, Icon, Input, Button } from 'antd';
 import axios from 'axios';
 
 class FormMember extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      first_name    : '',
+      last_name     : '',
+    }
+  }
 
-  // componentWillReceiveProps = () => {
+  // componentDidUpdate = () => {
   //   console.log('form', this.props.firstName)
-  //   this.props.form.setFieldsValue({
+  //   // this.props.form.setFieldsValue({
+  //   //   first_name: this.props.firstName,
+  //   //   last_name: this.props.lastName
+  //   // })
+  //   this.setState ({
   //     first_name: this.props.firstName,
-  //     last_name: this.props.lastName
+  //     last_name: this.props.lastName,
+  //   })
+  // }
+
+  // static getDerivedStateFromProps(props, state) {
+  //   this.props.form.setFieldsValue({
+  //     first_name: props.firstName,
+  //     last_name: props.lastName
   //   })
   // }
 
@@ -75,7 +93,7 @@ class FormMember extends Component {
         <Form.Item>
           {getFieldDecorator('first_name', {
             rules: [{ required: true, message: 'Please input your first name!' }],
-            setFieldsValue: this.props.firstName,
+            // getValueProps: (this.state.first_name),
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -87,6 +105,7 @@ class FormMember extends Component {
         <Form.Item>
           {getFieldDecorator('last_name', {
             rules: [{ required: true, message: 'Please input your last name!' }],
+            // getValueProps: this.state.last_name,
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -108,5 +127,5 @@ class FormMember extends Component {
     );
   }
 }
-const WrappedFormMember = Form.create({ name: 'form_member' })(FormMember);
+const WrappedFormMember = Form.create({name: 'form_member' })(FormMember);
 export default WrappedFormMember;
